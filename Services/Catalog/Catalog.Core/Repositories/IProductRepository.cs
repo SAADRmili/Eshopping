@@ -1,4 +1,5 @@
 ﻿using Catalog.Core.Entites;
+using Catalog.Core.Specs;
 
 namespace Catalog.Core.Repositories;
 public interface IProductRepository
@@ -7,7 +8,7 @@ public interface IProductRepository
     Task<bool> DeleteProduct(string id);
     Task<bool> UpdateProduct(Product product);
     Task<Product> GetProduct(string id);
-    Task<IEnumerable<Product>> GetAllProducts();
+    Task<Pagination<Product>> GetAllProducts(CatalogSpecParams catalogSpecParams);
     Task<IEnumerable<Product>> GetAllProductByName(string name);
     Task<IEnumerable<Product>> GetAllProductByBrand(string name);
 }

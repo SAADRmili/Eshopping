@@ -4,7 +4,7 @@ using Catalog.Application.Responses;
 using Catalog.Core.Repositories;
 using MediatR;
 
-namespace Catalog.Application.Handlers;
+namespace Catalog.Application.Handlers.QueryHandlers;
 public class GetAllTypesHandler(ITypesRepository typesRepository) : IRequestHandler<GetAllTypesQuery, IList<TypeReponse>>
 {
     public async Task<IList<TypeReponse>> Handle(GetAllTypesQuery request, CancellationToken cancellationToken)

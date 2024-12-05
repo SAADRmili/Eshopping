@@ -11,7 +11,7 @@ public static class BrandContextSeed
         var path = Path.Combine("Data", "SeedData", "brands.json");
         if (!checkBrands)
         {
-            var brandsData = File.ReadAllText(path);
+            var brandsData = File.ReadAllText("../Catalog.Infrastructure/Data/SeedData/brands.json");
             var brands = JsonSerializer.Deserialize<List<ProductBrand>>(brandsData);
             if (brands is not null)
             {

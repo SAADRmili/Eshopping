@@ -5,7 +5,7 @@ using Catalog.Core.Entites;
 using Catalog.Core.Repositories;
 using MediatR;
 
-namespace Catalog.Application.Handlers;
+namespace Catalog.Application.Handlers.QueryHandlers;
 public class GetAllBrandsHandler(IBrandRepository brandRepository) : IRequestHandler<GetAllBrandsQuery, IList<BrandsResponse>>
 {
     public async Task<IList<BrandsResponse>> Handle(GetAllBrandsQuery request, CancellationToken cancellationToken)

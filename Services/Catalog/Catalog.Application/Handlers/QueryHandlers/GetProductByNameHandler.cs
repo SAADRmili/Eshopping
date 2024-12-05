@@ -4,7 +4,7 @@ using Catalog.Application.Responses;
 using Catalog.Core.Repositories;
 using MediatR;
 
-namespace Catalog.Application.Handlers;
+namespace Catalog.Application.Handlers.QueryHandlers;
 public class GetProductByNameHandler(IProductRepository productRepository) : IRequestHandler<GetProductByNameQuery, IList<ProductResponse>>
 {
     public async Task<IList<ProductResponse>> Handle(GetProductByNameQuery request, CancellationToken cancellationToken)

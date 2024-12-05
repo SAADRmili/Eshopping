@@ -1,15 +1,15 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using Catalog.Application.Responses;
+using Catalog.Core.Entites;
+using MediatR;
 
-namespace Catalog.Core.Entites;
-public class Product : BaseEntity
+namespace Catalog.Application.Commands;
+public class CreateProductCommand : IRequest<ProductResponse>
 {
-    [BsonElement("Name")]
     public string Name { get; set; }
     public string Summary { get; set; }
     public string Description { get; set; }
     public string ImageFile { get; set; }
+    public decimal Price { get; set; }
     public ProductBrand Brands { get; set; }
     public ProductType Types { get; set; }
-    [BsonRepresentation(MongoDB.Bson.BsonType.Decimal128)]
-    public decimal Price { get; set; }
 }
