@@ -87,3 +87,5 @@ This project aligns with the following course chapters:
    ```bash
    https://github.com/SAADRmili/Eshopping.git
    cd Eshopping
+   docker-compose -f .\docker-compose.yml -f .\docker-compose.override.yml up -d
+   
