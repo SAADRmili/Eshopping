@@ -10,7 +10,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 //automapper
+//Register AutoMapper
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
+
 //mediatr
 var assemblies = new Assembly[]
 {

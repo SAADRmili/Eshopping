@@ -12,7 +12,13 @@ public class GetDiscountQueryHandler(IDiscountRepository discountRepository, IMa
     {
         var result = await discountRepository.GetDiscount(request.ProductName);
         if (result == null) throw new RpcException(new Status(StatusCode.NotFound, $"Discount for the Product Name = {request.ProductName} not Found"));
-        var coupon = mapper.Map<CouponModel>(result);
-        return coupon;
+        var couponModel = new CouponModel
+        {
+            Id = result.Id,
+            Amount = result.Amount,
+            Description = result.Description,
+            ProductName = result.ProductName
+        };
+        return couponModel;
     }
 }
