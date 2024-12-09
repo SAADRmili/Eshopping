@@ -88,4 +88,6 @@ This project aligns with the following course chapters:
    https://github.com/SAADRmili/Eshopping.git
    cd Eshopping
    docker-compose -f .\docker-compose.yml -f .\docker-compose.override.yml up -d
+   dotnet tool install --global dotnet-ef
+   dotnet ef migrations add initialCreate -p ../Ordering.Infrastructure -s ../Ordering.API -c OrderContext
    
