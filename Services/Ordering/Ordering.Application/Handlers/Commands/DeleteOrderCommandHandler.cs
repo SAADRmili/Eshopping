@@ -6,7 +6,7 @@ using Ordering.Core.Entities;
 using Ordering.Core.Repositories;
 
 namespace Ordering.Application.Handlers.Commands;
-public class DeleteOrderCommandHandler(IOrderRepository orderRepository, ILogger logger) : IRequestHandler<DeleteOrderCommand, Unit>
+public class DeleteOrderCommandHandler(IOrderRepository orderRepository, ILogger<DeleteOrderCommandHandler> logger) : IRequestHandler<DeleteOrderCommand, Unit>
 {
     public async Task<Unit> Handle(DeleteOrderCommand request, CancellationToken cancellationToken)
     {

@@ -6,7 +6,7 @@ using Ordering.Core.Entities;
 using Ordering.Core.Repositories;
 
 namespace Ordering.Application.Handlers.Commands;
-public class CheckoutOrderCommandHandler(IOrderRepository orderRepository, IMapper mapper, ILogger logger) : IRequestHandler<CheckoutOrderCommand, int>
+public class CheckoutOrderCommandHandler(IOrderRepository orderRepository, IMapper mapper, ILogger<CheckoutOrderCommandHandler> logger) : IRequestHandler<CheckoutOrderCommand, int>
 {
     public async Task<int> Handle(CheckoutOrderCommand request, CancellationToken cancellationToken)
     {

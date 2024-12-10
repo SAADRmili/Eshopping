@@ -35,18 +35,14 @@ public class RespositoryBase<T>(OrderContext orderContext) : IAsyncRepository<T>
 
     public async Task DeleteAsync(T entity)
     {
-        var entitydeleted = await GetByIdAsync(entity.Id);
-        if (entitydeleted is null) return;
         orderContext
             .Set<T>()
-            .Remove(entitydeleted);
+            .Remove(entity);
         await orderContext.SaveChangesAsync();
     }
 
     public async Task UpdateAsync(T entity)
     {
-        var entityUpdated = await GetByIdAsync(entity.Id);
-        if (entityUpdated is null) return;
         orderContext.Entry(entity).State = EntityState.Modified;
         await orderContext.SaveChangesAsync();
     }
