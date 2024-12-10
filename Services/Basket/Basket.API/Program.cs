@@ -43,12 +43,14 @@ builder.Services.AddStackExchangeRedisCache(opt =>
     opt.Configuration = builder.Configuration.GetValue<string>("CacheSettings:ConnectionString");
 });
 builder.Services.AddLogging();
+//GRPC
 builder.Services.AddScoped<DiscountGrpcService>();
 builder.Services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>(opt =>
 {
     opt.Address = new Uri(builder.Configuration["GrpcSettings:DiscountUrl"]!);
 });
 
+//Masstransit
 builder.Services.AddMassTransit(config =>
 {
     config.UsingRabbitMq((ct, cfg) =>
