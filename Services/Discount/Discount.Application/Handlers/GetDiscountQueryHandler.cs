@@ -4,9 +4,10 @@ using Discount.Core.Repositories;
 using Discount.Grpc.Protos;
 using Grpc.Core;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace Discount.Application.Handlers;
-public class GetDiscountQueryHandler(IDiscountRepository discountRepository, IMapper mapper) : IRequestHandler<GetDiscountQuery, CouponModel>
+public class GetDiscountQueryHandler(IDiscountRepository discountRepository, IMapper mapper, ILogger<GetDiscountQueryHandler> logger) : IRequestHandler<GetDiscountQuery, CouponModel>
 {
     public async Task<CouponModel> Handle(GetDiscountQuery request, CancellationToken cancellationToken)
     {
@@ -19,6 +20,7 @@ public class GetDiscountQueryHandler(IDiscountRepository discountRepository, IMa
             Description = result.Description,
             ProductName = result.ProductName
         };
+        logger.LogInformation($"Coupon for the {request.ProductName} is fetched");
         return couponModel;
     }
 }

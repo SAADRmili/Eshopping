@@ -8,7 +8,7 @@ using System.Net;
 
 namespace Catalog.API.Controllers;
 
-public class CatalogController(IMediator mediator) : ApiController
+public class CatalogController(IMediator mediator, ILogger<CatalogController> logger) : ApiController
 {
     [HttpGet]
     [Route("[action]/{id}", Name = "GetProductById")]
@@ -18,6 +18,7 @@ public class CatalogController(IMediator mediator) : ApiController
     {
         var query = new GetProductByIdQuery(id);
         var result = await mediator.Send(query);
+        logger.LogInformation(result is not null ? $"Product recived" : "Product didn't recive");
         return result is not null ? Ok(result) : NotFound();
     }
 
@@ -30,6 +31,8 @@ public class CatalogController(IMediator mediator) : ApiController
     {
         var query = new GetProductByNameQuery(name);
         var result = await mediator.Send(query);
+        logger.LogInformation(result is not null ? $"Products recived" : "Products didn't recive");
+
         return result is not null ? Ok(result) : NotFound();
     }
 
@@ -42,6 +45,7 @@ public class CatalogController(IMediator mediator) : ApiController
     {
         var query = new GetAllProductsQuery(catalogSpecParams);
         var result = await mediator.Send(query);
+        logger.LogInformation(result is not null ? $"Products recived" : "Products didn't recive");
         return result is not null ? Ok(result) : NotFound();
     }
 
@@ -76,6 +80,7 @@ public class CatalogController(IMediator mediator) : ApiController
     {
         var query = new GetProductByBrandQuery(brandName);
         var result = await mediator.Send(query);
+        logger.LogInformation(result is not null ? $"Products recived" : "Products didn't recive");
         return result is not null ? Ok(result) : NotFound();
     }
 
@@ -86,6 +91,7 @@ public class CatalogController(IMediator mediator) : ApiController
     public async Task<ActionResult<ProductResponse>> CreateProduct([FromBody] CreateProductCommand command)
     {
         var result = await mediator.Send(command);
+        logger.LogInformation(result is not null ? $"Product created" : "Product didn't create");
         return result is not null ? Ok(result) : NotFound();
     }
 
@@ -96,6 +102,7 @@ public class CatalogController(IMediator mediator) : ApiController
     public async Task<ActionResult<bool>> UpdateProduct([FromBody] UpdateProductCommand command)
     {
         var result = await mediator.Send(command);
+        logger.LogInformation(result ? $"Product updated" : "Product didn't update");
         return result ? Ok(result) : NotFound();
     }
 
@@ -107,6 +114,7 @@ public class CatalogController(IMediator mediator) : ApiController
     {
         var command = new DeleteProductCommand(id);
         var result = await mediator.Send(command);
+        logger.LogInformation(result ? $"Product deleted" : "Product didn't delete");
         return result ? Ok(result) : NotFound();
     }
 

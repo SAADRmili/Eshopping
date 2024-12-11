@@ -11,7 +11,7 @@ using System.Net;
 
 namespace Basket.API.Controllers;
 
-public class BasketController(IMediator mediator, IPublishEndpoint publishEndpoint) : ApiController
+public class BasketController(IMediator mediator, IPublishEndpoint publishEndpoint, ILogger<BasketController> logger) : ApiController
 {
     [HttpGet]
     [Route("[action]/{userName}", Name = "GetBasketByUserName")]
@@ -20,6 +20,7 @@ public class BasketController(IMediator mediator, IPublishEndpoint publishEndpoi
     {
         var query = new GetBasketByUserNameQuery(userName);
         var result = await mediator.Send(query);
+        logger.LogInformation(result is not null ? $"Basket for {result.UserName}" : "Basket Not found");
         return result is not null ? Ok(result) : NotFound();
     }
 
@@ -40,6 +41,7 @@ public class BasketController(IMediator mediator, IPublishEndpoint publishEndpoi
     {
         var command = new DeleteBasketByUserNameCommand(userName);
         var result = await mediator.Send(command);
+        logger.LogInformation($"Basket Deleted for {userName}");
         return Ok();
     }
 
@@ -57,6 +59,7 @@ public class BasketController(IMediator mediator, IPublishEndpoint publishEndpoi
         var eventMassage = BasketMapper.Mapper.Map<BasketCheckoutEvent>(basketCheckout);
         eventMassage.TotalPrice = basket.TotalPrice;
         await publishEndpoint.Publish(eventMassage);
+        logger.LogInformation($"Basket Published for {basket.UserName}");
         //remove the baseket
         var deletecmd = new DeleteBasketByUserNameCommand(basket.UserName);
         await mediator.Send(deletecmd);

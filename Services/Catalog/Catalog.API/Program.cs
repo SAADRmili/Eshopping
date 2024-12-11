@@ -2,9 +2,15 @@ using Catalog.Application.Handlers.QueryHandlers;
 using Catalog.Core.Repositories;
 using Catalog.Infrastructure.Data;
 using Catalog.Infrastructure.Repositories;
+using Common.Logging;
+using Serilog;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
+
+//Add serilog configuration
+builder.Host.UseSerilog(Logging.ConfigureLogger);
+
 
 // Add services to the container.
 
@@ -16,9 +22,16 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1",
     new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Catalog.API", Version = "v1" });
 });
+
+//ApiVersioning
+builder.Services.AddApiVersioning(opt =>
+{
+    opt.ReportApiVersions = true;
+    opt.AssumeDefaultVersionWhenUnspecified = true;
+    opt.DefaultApiVersion = new Asp.Versioning.ApiVersion(1, 0);
+});
+
 //automapper
-
-
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 //mediatr
 var assemblies = new Assembly[]

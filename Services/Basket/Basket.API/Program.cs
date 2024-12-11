@@ -2,11 +2,16 @@ using Basket.Application.Commands;
 using Basket.Application.GrpcService;
 using Basket.Core.Repositories;
 using Basket.Infrastructure.Repositories;
+using Common.Logging;
 using Discount.Grpc.Protos;
 using MassTransit;
+using Serilog;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
+
+//Add serilog configuration
+builder.Host.UseSerilog(Logging.ConfigureLogger);
 
 // Add services to the container.
 
