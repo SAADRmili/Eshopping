@@ -13,7 +13,15 @@ var builder = WebApplication.CreateBuilder(args);
 //Add serilog configuration
 builder.Host.UseSerilog(Logging.ConfigureLogger);
 
-
+//addcors 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy", policy =>
+    {
+        policy.AllowAnyHeader().AllowAnyMethod()
+        .AllowAnyOrigin();
+    });
+});
 //automapper
 //Register AutoMapper
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
@@ -42,7 +50,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseRouting();
-
+app.UseCors("CorsPolicy");
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapGrpcService<DiscountService>();

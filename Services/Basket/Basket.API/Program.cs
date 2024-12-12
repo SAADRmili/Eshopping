@@ -15,6 +15,16 @@ var builder = WebApplication.CreateBuilder(args);
 //Add serilog configuration
 builder.Host.UseSerilog(Logging.ConfigureLogger);
 
+//addcors 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy", policy =>
+    {
+        policy.AllowAnyHeader().AllowAnyMethod()
+        .AllowAnyOrigin();
+    });
+});
+
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -103,7 +113,7 @@ if (app.Environment.IsDevelopment())
         c.SwaggerEndpoint("/swagger/v2/swagger.json", "Basket.API v2");
     });
 }
-
+app.UseCors("CorsPolicy");
 app.UseAuthorization();
 
 app.MapControllers();
