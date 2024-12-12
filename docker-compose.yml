@@ -50,5 +50,6 @@ volumes:
   postgres_data:
   pgadmin_data:
   elasticsearch_data:
+  orderdb_data:
 
 

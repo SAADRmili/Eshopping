@@ -36,6 +36,8 @@ services:
       SA_PASSWORD: "Str0ngP@ssw0rd!"
       ACCEPT_EULA: "Y"
     restart: always
+    volumes:
+      - orderdb_data:/var/opt/mssql 
     ports:
       - "1433:1433" 
     healthcheck:

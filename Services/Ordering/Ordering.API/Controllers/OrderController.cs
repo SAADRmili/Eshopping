@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Asp.Versioning;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Ordering.Application.Commands;
 using Ordering.Application.Queries;
@@ -6,6 +7,8 @@ using Ordering.Application.Response;
 
 namespace Ordering.API.Controllers;
 
+
+[ApiVersion("1")]
 public class OrderController(IMediator mediator, ILogger<OrderController> logger) : ApiController
 {
     [HttpGet("{userName}", Name = "GetOrdersByUserName")]
