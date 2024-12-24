@@ -20,7 +20,7 @@ public class BasketController(IMediator mediator, IPublishEndpoint publishEndpoi
     [HttpPost]
     [ProducesResponseType((int)HttpStatusCode.Accepted)]
     [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-    public async Task<IActionResult> Checkout([FromBody] BasketCheckoutV2 basketCheckout)
+    public async Task<IActionResult> CheckoutV2([FromBody] BasketCheckoutV2 basketCheckout)
     {
         //Get the exsiting basket with username 
         var query = new GetBasketByUserNameQuery(basketCheckout.UserName);
